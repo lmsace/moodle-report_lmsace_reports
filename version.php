@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'report_lmsace_reports';
-$plugin->version = 2024051500;
+$plugin->version = 2024051501;
 $plugin->release = 'v1.0';
 $plugin->requires = 2022041900;
 $plugin->maturity = MATURITY_STABLE;

@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/ajax', 'core/loadingicon', 'report_lmsace_reports/chart'], function($, AJAX, LoadIcon) {
+define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) {
 
     /* global mostvisitcourse */
 
