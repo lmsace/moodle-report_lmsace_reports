@@ -90,7 +90,7 @@ class learnersoverviewwidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "learnersoverview-" . $this->filter;
+        return "learnersoverview_" . $this->filter;
     }
 
 

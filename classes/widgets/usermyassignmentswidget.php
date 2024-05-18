@@ -72,7 +72,7 @@ class usermyassignmentswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "usermyassignments-" . $this->user->id;
+        return "u_" . $this->user->id . "_usermyassignments";
     }
 
     /**

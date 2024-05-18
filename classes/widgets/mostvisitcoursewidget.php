@@ -88,7 +88,7 @@ class mostvisitcoursewidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "mostvisitcourse-" . $this->filter . "-" . $this->user->id;
+        return  "u_" . $this->user->id . "_mostvisitcourse_" . $this->filter;
     }
 
     /**

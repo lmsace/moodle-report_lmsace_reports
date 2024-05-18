@@ -119,7 +119,7 @@ class sitevisitswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key($type) {
-        return "sitvisits-" . $type . "-" . $this->filter . "-" . $this->userid;
+        return "u_" . $this->userid . "_sitvisits_" . $type . "_" . $this->filter;
     }
 
     /**

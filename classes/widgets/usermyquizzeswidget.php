@@ -71,7 +71,7 @@ class usermyquizzeswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "usermyquizzes-" . $this->user->id;
+        return "u_" . $this->user->id . '_usermyquizzes';
     }
 
     /**

@@ -93,6 +93,22 @@ abstract class widgets_info {
     }
 
     /**
+     * Purge the caches of the report widgets.
+     *
+     * @return bool
+     */
+    public static function purge_cache(?string $key=''): bool {
+        // Report cache handler.
+        $cache = cache::make('report_lmsace_reports', 'reportwidgets');
+        if ($key == 'all') {
+            $result = $cache->purge();
+        } else if ($key != '') {
+            $result = $cache->delete_report($key);
+        }
+        return $result ?? false;
+    }
+
+    /**
      * Get chart type.
      */
     abstract public function get_charttype();

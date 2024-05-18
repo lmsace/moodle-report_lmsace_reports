@@ -24,13 +24,37 @@
  */
 
 require_once('../../config.php');
+
+use report_lmsace_reports\output\widgets_info;
+
+$courseid = optional_param('courseinfo', 0, PARAM_INT);
+$userid = optional_param('userinfo', 0, PARAM_INT);
+$action = optional_param('purge', 'all', PARAM_ALPHA);
+
 require_login();
+
+$PAGE->set_url(new moodle_url('/report/lmsace_reports/index.php'));
+
+$purgekey = '';
+if ($action == 'all' && has_capability('report/lmsace_reports:viewsitereports', \context_system::instance())) {
+    $purgekey = 'all';
+} else if ($courseid && $action == 'coursereport'
+    && has_capability('report/lmsace_reports:viewcoursereports', \context_course::instance($courseid))) {
+    $purgekey = 'c_'.$courseid.'_';
+} else if ($action == 'user' && $USER->id != $userid
+    && has_capability('report/lmsace_reports:viewotheruserreports', \context_user::instance($USER->id))) {
+    // User with capability when view the other users reports. then reloads the data.
+    $purgekey = 'u_'.$userid.'_';
+} else if ($action == 'userreport' && $USER->id == $userid
+    && has_capability('report/lmsace_reports:viewuserreports', \context_user::instance($USER->id))) {
+    $purgekey = 'u_'.$userid.'_';
+}
 
 $returnurl = optional_param('returnurl', '/admin/purgecaches.php', PARAM_LOCALURL);
 $returnurl = new moodle_url($returnurl);
 
-purge_caches();
-
-$message = get_string('reportcachepurge', 'report_lmsace_reports');
+// Purge the cache using the widget cache handler. if not cache purged then use the purge caches method to purge all.
+$message = (widgets_info::purge_cache($purgekey)) ? get_string('reportcachepurge', 'report_lmsace_reports')
+    : get_string('notcachepurge', 'report_lmsace_reports');
 
 redirect($returnurl, $message);

@@ -111,10 +111,14 @@ class courseenrolcompletionwidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        $key = "courseenrolcompletion-" . $this->filter . "-" . $this->course->id;
+        $key = "c_" . $this->course->id;
+
         if ($this->callto) {
-            $key .= "-". $this->callto;
+            $key .= "_". $this->callto;
         }
+
+        $key .= "_courseenrolcompletion_" . $this->filter;
+
         return $key;
     }
 

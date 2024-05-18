@@ -104,7 +104,7 @@ class coursemodulegradeswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "modulesattempts" . $this->filter . "-" . $this->course->id;
+        return "c_" . $this->course->id . "_modulesattempts_" . $this->filter;
     }
 
     /**

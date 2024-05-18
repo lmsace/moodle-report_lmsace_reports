@@ -83,7 +83,7 @@ class courseresourceswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "courseresources-" . $this->filter . "-" . $this->course->id;
+        return "c_" . $this->course->id . "_courseresources_" . $this->filter;
     }
 
     /**

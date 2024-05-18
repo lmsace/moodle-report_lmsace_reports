@@ -81,7 +81,7 @@ class lmsace_reports implements renderable, templatable {
                 'sesskey' => sesskey(),
                 'returnurl' => $PAGE->url->out_as_local_url(false),
             ]);
-        $data->purgeurl = $purgeurl->out(false);
+
         $data->contextid = $PAGE->context->id;
         $data->users = report_helper::get_users($output->useraction);
 
@@ -90,7 +90,11 @@ class lmsace_reports implements renderable, templatable {
         if (isset($output->report) && !empty($output->report)) {
             $data->{$output->report} = true;
             $data->reportbase = true;
+            $purgeurl->param('purge', $output->report);
+            $purgeurl->param('courseinfo', $output->courseaction);
+            $purgeurl->param('userinfo', $output->useraction);
         }
+        $data->purgeurl = $purgeurl->out(false);
 
         $availableteachercourses = false;
         if ($output->report == 'coursereport' && !has_capability("report/lmsace_reports:viewsitereports",

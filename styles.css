@@ -1,5 +1,5 @@
 /* Reports block */
-.navbar.navbar-expand-lg .navbar-collapse {
+.lmsace-reports-body .navbar.navbar-expand-lg .navbar-collapse {
     display: none !important; /* stylelint-disable-line declaration-no-important */
 }
 #page-local-lmsace_reports-index #page #page-content #region-main {
@@ -238,11 +238,7 @@
     display: inline-block;
     vertical-align: middle;
 }
-/* .lmsace-reports-body .reports-block .tab-element .tab-content .course-report-block .course-block span,
-.lmsace-reports-body .reports-block .tab-element .tab-content .user-report-block > .user-block span {
-    font-size: 20px;
-    margin-right: 10px;
-} */
+
 .lmsace-reports-body .reports-block .tab-element .tab-content .course-report-block .course-block .bsearch,
 .lmsace-reports-body .reports-block .tab-element .tab-content .user-report-block .user-block .bsearch {
     max-width: 560px;
@@ -430,29 +426,34 @@
 
 /* Course module grade */
 /* Move the assignment section downwards */
-.course-module-assignment-grade {
+.lmsace-reports-body .course-module-assignment-grade {
     margin-top: 30px;
 }
 /* Padding for both assignment and quiz */
-.course-module-assignment-grade,
-.course-module-quiz-grade {
+.lmsace-reports-body .course-module-assignment-grade,
+.lmsace-reports-body .course-module-quiz-grade {
     padding: 10px;
     margin-top: 0;
 }
-.course-module-assignment-grade > div:nth-child(1),
-.course-module-quiz-grade > div:nth-child(1) {
+.lmsace-reports-body .course-module-assignment-grade > div:nth-child(1),
+.lmsace-reports-body .course-module-quiz-grade > div:nth-child(1) {
     margin-left: 0;
     color: #000;
     font-size: 1.1em;
     margin-bottom: 19px;
 }
-.course-module-assignment-grade > div,
-.course-module-quiz-grade > div {
+.lmsace-reports-body .course-module-assignment-grade > div,
+.lmsace-reports-body .course-module-quiz-grade > div {
     margin-bottom: 10px;
     color: #666;
     margin-left: 25px;
 }
-.course-module-assignment-grade > div:nth-child(1) span i,
-.course-module-quiz-grade > div:nth-child(1) span i {
+.lmsace-reports-body .course-module-assignment-grade > div:nth-child(1) span i,
+.lmsace-reports-body .course-module-quiz-grade > div:nth-child(1) span i {
     margin-right: 5px;
+}
+
+.lmsace-reports-body .nav-item.refresh-button.position-absolute {
+    top: -50px;
+    right: 0;
 }

@@ -87,7 +87,7 @@ class userscorewidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "userscore-" . $this->filter . "-" . $this->user->id;
+        return "u_" . $this->user->id . "_userscore_" . $this->filter;
     }
 
     /**

@@ -90,7 +90,7 @@ class coursehighscorewidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "coursehighscore-" . $this->course->id;
+        return "c_" . $this->course->id . "_coursehighscore";
     }
 
     /**

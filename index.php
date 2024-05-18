@@ -38,13 +38,14 @@ $courseaction = optional_param('courseinfo', $defaultcourse, PARAM_INT);
 $useraction = optional_param('userinfo', $defaultuser, PARAM_INT);
 $report = optional_param('report', '', PARAM_TEXT);
 
+// Page URL.
+$pageurl = new moodle_url($CFG->wwwroot."/report/lmsace_reports/index.php");
 
-if ($report == 'sitereport') {
-    $context = context_system::instance();
-    require_capability("report/lmsace_reports:viewsitereports", $context);
-} else if ($report == 'coursereport') {
+if ($report == 'coursereport') {
     $context = context_course::instance($courseaction);
     require_capability("report/lmsace_reports:viewcoursereports", $context);
+    $pageurl->param('courseinfo', $courseaction);
+
 } else if ($report == 'userreport') {
     if ($USER->id == $useraction) {
         $context = context_user::instance($useraction);
@@ -58,7 +59,7 @@ if ($report == 'sitereport') {
     if (is_siteadmin($useraction)) {
         core\notification::info(get_string('noadminreports', 'report_lmsace_reports'));
     }
-
+    $pageurl->param('userinfo', $useraction);
 } else {
     $context = context_system::instance();
     require_capability("report/lmsace_reports:viewsitereports", $context);
@@ -66,10 +67,6 @@ if ($report == 'sitereport') {
 
 list($context, $course, $cm) = get_context_info_array($context->id);
 require_login($course, false, $cm);
-
-
-// Page URL.
-$pageurl = new moodle_url($CFG->wwwroot."/report/lmsace_reports/index.php");
 
 if ($report) {
     $pageurl->param('report', $report);
@@ -104,6 +101,7 @@ $output->report = $report;
 // Print output in page.
 echo $output->header();
 $renderable = new \report_lmsace_reports\output\lmsace_reports();
+
 // Load js.
 $PAGE->requires->js_call_amd('report_lmsace_reports/main', 'init');
 echo $output->render($renderable);

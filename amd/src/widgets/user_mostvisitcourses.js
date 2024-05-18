@@ -52,7 +52,17 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
             var borderColor = main.getRandomColors(['c6']); // Get border color without opaticty.
             var customConfig = {
                 options: {
-                    maintainAspectRatio: true
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: !0,
+                            min: 0,
+                            suggestedMin: 0,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                    }
                 },
                 data: {
                     datasets: [{

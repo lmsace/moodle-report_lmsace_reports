@@ -76,7 +76,7 @@ class usergroupcohortswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "usergroupcohorts-" . $this->filter . "-" . $this->user->id;
+        return "u_" . $this->user->id . "_usergroupcohorts_" . $this->filter;
     }
 
     /**

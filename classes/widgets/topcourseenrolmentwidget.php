@@ -86,7 +86,7 @@ class topcourseenrolmentwidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "topcourseenrolment-" . $this->filter;
+        return "topcourseenrolment_" . $this->filter;
     }
 
 

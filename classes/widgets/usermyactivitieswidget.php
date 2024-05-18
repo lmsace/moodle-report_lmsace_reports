@@ -76,7 +76,7 @@ class usermyactivitieswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "coursemyactivities-" . $this->user->id;
+        return "u_" . $this->user->id . "_coursemyactivities";
     }
 
     /**

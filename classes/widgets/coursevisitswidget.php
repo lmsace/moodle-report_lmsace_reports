@@ -94,7 +94,7 @@ class coursevisitswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "coursevisits-" . $this->filter . "-" . $this->course->id;
+        return "c_" . $this->course->id . "_coursevisits_" . $this->filter;
     }
 
     /**

@@ -87,7 +87,7 @@ class topcoursecompletionwidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "topcoursecompletion-" . $this->filter;
+        return "topcoursecompletion_" . $this->filter;
     }
 
 
@@ -107,12 +107,12 @@ class topcoursecompletionwidget extends widgets_info {
                 $durationsql .= " WHERE cc.timecompleted BETWEEN :timestart AND :timeend";
                 $params = array_merge($params, $durationparams);
             }
-            $sql = "SELECT c.id, c.fullname, c.shortname, COUNT(cc.userid) as completions
+            $sql = "SELECT c.id, c.fullname, c.shortname, COUNT(cc.id) as completions
                     FROM {course} c
                     JOIN {enrol} e ON e.courseid = c.id
                     JOIN {user_enrolments} ue ON ue.enrolid = e.id
                     JOIN {course_completions} cc ON cc.course = c.id AND cc.userid = ue.userid
-                    $durationsql GROUP BY c.id
+                    $durationsql GROUP BY c.id, c.fullname, c.shortname
                     ORDER BY completions DESC Limit 10";
             $records = $DB->get_records_sql($sql, $params);
             $data = [];

@@ -27,5 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 $definitions = [
     'reportwidgets' => [
         'mode' => cache_store::MODE_APPLICATION,
+        'simpledata' => false,
+        'simplekeys' => true,
+        'overrideclass' => '\report_lmsace_reports\cache\loader',
     ],
 ];

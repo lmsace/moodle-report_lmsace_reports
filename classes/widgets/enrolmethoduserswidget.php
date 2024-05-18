@@ -79,7 +79,7 @@ class enrolmethoduserswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "enrolmethodusers-" . $this->filter;
+        return "enrolmethodusers_" . $this->filter;
     }
 
     /**

@@ -180,6 +180,7 @@ $string['nositereports'] = 'Site reports are currently disabled. Please activate
 $string['nocoursereports'] = 'Course reports are currently disabled. Please activate course-level reports to access course analytics.';
 $string['nouserreports'] = 'User reports are currently disabled. Please activate user-level reports to access user analytics.';
 $string['noadminreports'] = 'Reports are not generated for admin users';
+$string['notcachepurge'] = 'Something went wrong with purge reports cache';
 
 $string['lmsace_reports:definestudents'] = '';
 

@@ -94,7 +94,7 @@ class siteuserswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "siteusers-" . $this->filter;
+        return "siteusers_" . $this->filter;
     }
 
     /**

@@ -95,7 +95,7 @@ class siteresourceofcourseswidget extends widgets_info {
      * @return string
      */
     public function get_cache_key() {
-        return "siteresourceofcourses-" . $this->filter;
+        return "siteresourceofcourses_" . $this->filter;
     }
 
     /**

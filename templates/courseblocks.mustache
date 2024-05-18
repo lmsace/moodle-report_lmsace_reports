@@ -29,7 +29,7 @@
 
 {{#enablecourseblock}}
 
-    <div class="course-report-block">
+    <div class="course-report-block position-relative">
 
         {{^reportbase}}
             <div class="course-block report-lmsace-selector">{{{courseform}}}</div>
@@ -42,6 +42,15 @@
         {{#nocoursereports}}
             <p class="no-course-reports alert alert-info"> {{#str}} nocoursereports, report_lmsace_reports {{/str}} </p>
         {{/nocoursereports}}
+
+        {{#reportbase}}
+        <div class="nav-item refresh-button position-absolute">
+            <a href="{{{purgeurl}}}" data-toggle="tooltip" title="{{#str}} reload, report_lmsace_reports {{/str}}"
+                class="btn btn-primary"> <i class="fa fa-refresh"> </i>
+                {{#str}} reload, report_lmsace_reports {{/str}}
+            </a>
+        </div>
+        {{/reportbase}}
 
         {{#stackcoursereports}}
         <div class="lmsace-reports count-block">

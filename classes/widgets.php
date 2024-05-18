@@ -124,21 +124,21 @@ class widgets {
         if (!empty($durationparams)) {
             $completiondurationsql = 'AND timecompleted BETWEEN :timestart AND :timeend';
         }
+
         $sql = "SELECT DISTINCT(cp.userid)
-            FROM {user_enrolments} ue
-            JOIN {enrol} e ON e.id = ue.enrolid AND e.courseid = :courseid
-            JOIN {role_assignments} ra ON ra.userid = ue.userid
-            JOIN {user} u ON u.id = ue.userid  AND u.deleted != 1
-            JOIN {course} c ON c.id = e.courseid
-            JOIN {course_completions} cp ON cp.course = e.courseid AND cp.userid = ue.userid
-            WHERE ra.contextid = :contextid AND ra.roleid = :studentid
-            $completiondurationsql";
-        $context = \context_course::instance($courseid);
-        $student = $DB->get_record('role', ['shortname' => 'student']);
+        FROM {course} c
+        JOIN {enrol} e ON e.courseid = c.id
+        JOIN {user_enrolments} ue ON ue.enrolid = e.id
+        JOIN {course_completions} cp ON cp.course = e.courseid AND cp.userid = ue.userid
+        JOIN {user} u ON u.id = ue.userid  AND u.deleted != 1
+        WHERE c.id = :courseid AND ue.status = 0
+        AND ue.timestart < :now1 AND (ue.timeend = 0 OR ue.timeend > :now2) AND cp.timecompleted IS NOT NULL
+        $completiondurationsql";
+
         $params = [
             'courseid' => $courseid,
-            'contextid' => $context->id,
-            'studentid' => $student->id,
+            'now1' => time(),
+            'now2' => time(),
         ];
         $params = array_merge($params, $durationparams);
         $records = $DB->get_records_sql($sql, $params);
