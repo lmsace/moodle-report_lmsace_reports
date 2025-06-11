@@ -186,3 +186,10 @@ $string['lmsace_reports:definestudents'] = '';
 
 // Privacy api.
 $string['privacy:metadata'] = 'At LMSACE Reports, we prioritize your privacy. We never collect or store user data, ensuring that your information remains confidential and secure.';
+$string['name'] = 'Name';
+$string['email'] = 'Email';
+$string['gradecourseprogress'] = 'Grade course progress';
+$string['totalcourseprogress'] = 'Total course progress';
+$string['completioncourses'] = 'Completion courses';
+$string['accountcreated'] = 'Account created';
+$string['lastlogin'] = 'Last login';
