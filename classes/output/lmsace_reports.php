@@ -115,22 +115,31 @@ class lmsace_reports implements renderable, templatable {
         require_once($CFG->dirroot . '/report/lmsace_reports/form/chooser_form.php');
 
         if (has_capability("report/lmsace_reports:viewsitereports", \context_system::instance()) && $data->enablecourseblock) {
-            // Course selectors form.
-            $courseform = new \course_selector_form(null, ['courseinfo' => $output->courseaction]);
-            if ($courseform->get_data()) {
-                $data->showcoursereport = true;
+
+            if ($PAGE->context->contextlevel == CONTEXT_SYSTEM) {
+                // Course selectors form.
+                $courseform = new \course_selector_form(null, ['courseinfo' => $output->courseaction]);
+                if ($courseform->get_data()) {
+                    $data->showcoursereport = true;
+                }
+                $courseform->set_data(['courseinfo' => $output->courseaction]);
+                $data->courseform = $courseform->render();
+            } else {
+                $data->courseform = '';
             }
-            $courseform->set_data(['courseinfo' => $output->courseaction]);
-            $data->courseform = $courseform->render();
         }
 
-        // Users selectors form.
-        $form = (new \user_selector_form(null, ['userinfo' => $output->useraction]));
-        if ($form->get_data()) {
-            $data->showuserreport = true;
+        if ($PAGE->context->contextlevel == CONTEXT_SYSTEM) {
+            // Users selectors form.
+            $form = (new \user_selector_form(null, ['userinfo' => $output->useraction]));
+            if ($form->get_data()) {
+                $data->showuserreport = true;
+            }
+            $form->set_data(['userinfo' => $output->useraction]);
+            $data->userform = $form->render();
+        }  else {
+            $data->userform = '';
         }
-        $form->set_data(['userinfo' => $output->useraction]);
-        $data->userform = $form->render();
 
         $data->showsitereport = !isset($data->showcoursereport) && !isset($data->showuserreport);
 
