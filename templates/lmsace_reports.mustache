@@ -41,18 +41,21 @@
 
           <ul class="nav nav-tabs" id="lmsace-reports-tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link {{#showsitereport}} active {{/showsitereport}}" id="home-tab" data-toggle="tab" href="#site-report" role="tab" aria-controls="site-report" aria-selected="true">
+              <a class="nav-link {{#showsitereport}} active {{/showsitereport}}" id="home-tab"
+                  {{datatabtoggle}} {{datatargetsitereport}} role="tab" aria-controls="site-report" aria-selected="true">
                 {{#str}} sitereports, report_lmsace_reports {{/str}}
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{#showcoursereport}} active {{/showcoursereport}}" id="profile-tab" data-toggle="tab" href="#course-report" role="tab" aria-controls="course-report" aria-selected="false">
+              <a class="nav-link {{#showcoursereport}} active {{/showcoursereport}}" id="profile-tab"
+                  {{datatabtoggle}} {{datatargetcoursereport}} role="tab" aria-controls="course-report" aria-selected="false">
                 {{#str}} coursereports, report_lmsace_reports {{/str}}
               </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{#showuserreport}} active {{/showuserreport}}" id="user-tab" data-toggle="tab" href="#user-report" role="tab" aria-controls="user-report" aria-selected="false">
+                <a class="nav-link {{#showuserreport}} active {{/showuserreport}}" id="user-tab"
+                  {{datatabtoggle}} {{datatargetuserreport}} role="tab" aria-controls="user-report" aria-selected="false">
                 {{#str}} userreports, report_lmsace_reports {{/str}}
                 </a>
             </li>

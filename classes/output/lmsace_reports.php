@@ -140,7 +140,12 @@ class lmsace_reports implements renderable, templatable {
         } else {
             $data->userform = '';
         }
-
+        // Moodle 5.0 uses Bootstrap 5, so we need to set the correct data attribute for tab toggling.
+        $data->datatabtoggle = $CFG->branch >= 500 ? 'data-bs-toggle=tab' : 'data-toggle=tab';
+        $data->datatargetsitereport = $CFG->branch >= 500 ? 'data-bs-target=#site-report' : 'href=#site-report';
+        $data->datatargetcoursereport = $CFG->branch >= 500 ? 'data-bs-target=#course-report' : 'href=#course-report';
+        $data->datatargetuserreport = $CFG->branch >= 500 ? 'data-bs-target=#user-report' : 'href=#user-report';
+        $data->datatoggle = $CFG->branch >= 500 ? 'data-bs-toggle=dropdown' : 'data-toggle=dropdown';
         $data->showsitereport = !isset($data->showcoursereport) && !isset($data->showuserreport);
 
         return $data;

@@ -59,7 +59,7 @@ define(['jquery', 'report_lmsace_reports/widgets/user_cohorts_groups',
                 data: {
                     labels: userscore.label,
                     datasets: [{
-                        label: '',
+                        label: userscore.strscore,
                         data: userscore.value,
                         backgroundColor: main.getRandomColors(['c7']),
                         showTooltips: false,
