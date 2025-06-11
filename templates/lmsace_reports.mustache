@@ -22,8 +22,10 @@
     Example context (json):
     {
         "purgeurl": "https://moodleurl/purge/cache.php",
-        "showsitereport" : "1",
-        "reportbase": "true"
+        "showsitereport" : "true",
+        "showcoursereport" : "true",
+        "showuserreport" : "true",
+        "widgets": "true",
     }
 }}
 
@@ -36,7 +38,7 @@
         <div class="report-tabs">
 
           <div class="nav-item refresh-button">
-            <a href="{{{purgeurl}}}&purge=course" title="{{#str}} refershreport, report_lmsace_reports{{/str}}" class="btn btn-primary"> <i class="fa fa-refresh"> </i>
+            <a href="{{{purgeurl}}}" title="{{#str}} refershreport, report_lmsace_reports{{/str}}" class="btn btn-primary"> <i class="fa fa-refresh"> </i>
               {{#str}} reload, report_lmsace_reports {{/str}}
             </a>
           </div>
