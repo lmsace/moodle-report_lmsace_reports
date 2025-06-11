@@ -25,14 +25,12 @@ namespace report_lmsace_reports\cache;
 
 defined('MOODLE_INTERNAL') || die();
 
-if (file_exists($CFG->dirroot.'/cache/classes/loaders.php')) {
-    require_once($CFG->dirroot.'/cache/classes/loaders.php');
-}
+use core_cache\application_cache;
 
 /**
  * Custom cache loader for the lmsace reports.
  */
-class loader extends \cache_application {
+class loader extends application_cache {
 
     /**
      * Delete the cached reports for all of its users.
