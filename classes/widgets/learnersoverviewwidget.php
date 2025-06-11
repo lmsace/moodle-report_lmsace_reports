@@ -49,7 +49,7 @@ class learnersoverviewwidget extends widgets_info {
     /**
      * @var array $reportdata
      */
-    private $reportdata;
+    protected $reportdata;
 
     /**
      * @var string $context
