@@ -193,3 +193,4 @@ $string['totalcourseprogress'] = 'Total course progress';
 $string['completioncourses'] = 'Completion courses';
 $string['accountcreated'] = 'Account created';
 $string['lastlogin'] = 'Last login';
+$string['cachedef_reportwidgets'] = 'LMSACE Reports widget data cache';
