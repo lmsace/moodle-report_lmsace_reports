@@ -20,7 +20,7 @@
  * @copyright  2023 LMSACE <https://lmsace.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, AJAX, LoadIcon) {
+define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function ($, AJAX, LoadIcon) {
 
     /* global coursevisits, courseresources */
 
@@ -42,7 +42,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
         var datavalue = coursevisits.value;
         showVisitChart(main, label, datavalue);
 
-        $(".course-visits-block .dropdown-menu a").click(function() {
+        $(".course-visits-block .dropdown-menu a").click(function () {
             var selText = $(this).text();
             var filter = $(this).attr("value");
             $(this).parents('.dropdown').find('#daterangefiltermenu').html(selText + ' <span class="caret"></span>');
@@ -59,20 +59,20 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
      * @param {String} label
      * @param {Object} datavalue
      */
-    var showVisitChart = function(main, label, datavalue) {
+    var showVisitChart = function (main, label, datavalue) {
 
         let ctx = document.getElementById('course-visits-chart');
         if (ctx) {
             let type = 'line';
             var bgColor = main.getRandomColors(['c8'], '0.5', true); // Get bg color with opaticty.
             var borderColor = main.getRandomColors(['c8']); // Get border color without opaticty.
-            var customConfig = {data: {datasets: [{label: 'coursevisits'}]}};
+            var customConfig = { data: { datasets: [{ label: 'coursevisits' }] } };
 
             visitchart = main.buildChart(ctx, type, label, datavalue, bgColor, customConfig, borderColor);
         }
     };
 
-    var getCoursevisitsRecords = function(filter) {
+    var getCoursevisitsRecords = function (filter) {
         if (!filter) {
             filter = 'week';
         }
@@ -86,13 +86,13 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
             }
         };
         var promise = AJAX.call([request])[0];
-        promise.done(function(result) {
+        promise.done(function (result) {
             updateChartData(result);
         });
         LoadIcon.addIconToContainerRemoveOnCompletion(loadiconElement, promise);
     };
 
-    var updateChartData = function(data) {
+    var updateChartData = function (data) {
 
         visitchart.data.labels = data.label;
         visitchart.data.datasets[0].data = data.value;

@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Get Reports widgets.
  *
@@ -335,7 +334,7 @@ class widgets {
         $enrolment = [];
         $completion = [];
         foreach ($courses as $id => $course) {
-            $enrolcompletion = new \report_lmsace_reports\widgets\courseenrolcompletionwidget($course->id, '',
+            $enrolcompletion = new \report_lmsace_reports\local\widgets\courseenrolcompletionwidget($course->id, '',
                 $params, 0, "infoby_month_" . $filter);
             $list = $enrolcompletion->get_report();
             $label[] = $course->fullname;

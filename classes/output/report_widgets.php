@@ -72,13 +72,13 @@ class report_widgets {
             }
             // Check if class file exist.
             $classname = $widget->instance;
-            $classfile = $CFG->dirroot . '/report/lmsace_reports/classes/widgets/' . $classname . '.php';
+            $classfile = $CFG->dirroot . '/report/lmsace_reports/classes/local/widgets/' . $classname . '.php';
             if (!file_exists($classfile)) {
                 debugging("Class file dosn't exist " . $classname);
             }
             require_once($classfile);
             $widgetinstance = null;
-            $classname = '\\report_lmsace_reports\\widgets\\' . $classname;
+            $classname = '\\report_lmsace_reports\\local\\widgets\\' . $classname;
             if ($widget->context == "course") {
                 if ($DB->record_exists('course', ['id' => $output->courseaction])) {
                     $widgetinstance = new $classname($output->courseaction);

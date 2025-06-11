@@ -23,7 +23,7 @@
 
 define(['jquery', 'report_lmsace_reports/widgets/user_cohorts_groups',
     'report_lmsace_reports/widgets/user_mostvisitcourses', 'core/chartjs'
-], function($, userCohortsGroups, userMostVisitsCourses, Chart) {
+], function ($, userCohortsGroups, userMostVisitsCourses, Chart) {
 
     /* global userscore */
 
@@ -50,7 +50,7 @@ define(['jquery', 'report_lmsace_reports/widgets/user_cohorts_groups',
         }
     }
 
-    var showUserscoreChart = function(main) {
+    var showUserscoreChart = function (main) {
 
         let ctx = document.getElementById('user-score-chart');
         if (ctx) {

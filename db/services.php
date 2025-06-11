@@ -24,7 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-
 $functions = [
     'report_lmsace_reports_get_chart_reports' => [
         'classname'   => 'report_lmsace_reports_external',

@@ -26,7 +26,7 @@ define([
     'report_lmsace_reports/widgets/enroll_completion_month',
     'report_lmsace_reports/widgets/coursestatus',
     'core/chartjs',
-], function(enrollCompletion, enrollCompletionMonth, courseStatus) {
+], function (enrollCompletion, enrollCompletionMonth, courseStatus) {
 
     /* global courseactiveinactiveusers, coursehighscore */
 
@@ -43,7 +43,7 @@ define([
         },
     };
 
-    var loadCharts = function(main) {
+    var loadCharts = function (main) {
         showActiveInactiveUsersChart(main);
         showHighScoreCourse(main);
         for (var key in courseBlocks) {
@@ -51,23 +51,23 @@ define([
         }
     };
 
-    var showHighScoreCourse = function(main) {
+    var showHighScoreCourse = function (main) {
         let ctx = document.getElementById('high-score-course-chart');
         if (ctx) {
 
             let type = 'bar';
             var bgColor = main.getRandomColors(['c2']); // Get bg color with opaticty.
             var customConfig = {
-                data: {datasets: [{label: coursehighscore.strscore}]},
+                data: { datasets: [{ label: coursehighscore.strscore }] },
                 options: {
                     plugins: {
                         datalabels: {
                             backgroundColor: false,
                             borderWidth: 2,
-                            borderColor: function(context) {
+                            borderColor: function (context) {
                                 return context.dataset.backgroundColor;
                             },
-                            color: function(context) {
+                            color: function (context) {
                                 return context.dataset.backgroundColor;
                             }
                         }
@@ -80,7 +80,7 @@ define([
         }
     };
 
-    var showActiveInactiveUsersChart = function(main) {
+    var showActiveInactiveUsersChart = function (main) {
 
         let ctx = document.getElementById('active-inactive-users-chart');
         if (ctx) {
@@ -126,7 +126,7 @@ define([
     };
 
     return {
-        init: function(main) {
+        init: function (main) {
             loadCharts(main);
         }
     };

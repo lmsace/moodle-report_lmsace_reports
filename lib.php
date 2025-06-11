@@ -24,7 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-
 // Site reports - site information stack report.
 define("REPORT_LMSACE_REPORTS_SITESTATE", "stacksitereports");
 
@@ -123,7 +122,6 @@ function report_lmsace_reports_extend_navigation_course($navigation, $course, $c
             new pix_icon('i/report', ''));
 }
 
-
 /**
  * This function extends the course navigation with the report items
  *
@@ -166,26 +164,26 @@ function report_lmsace_get_block_report() {
     global $USER, $OUTPUT, $PAGE, $USER;
     // Site related show the report.
     if (has_capability("report/lmsace_reports:viewsitereports", context_system::instance())) {
-        $classname = '\\report_lmsace_reports\\widgets\\stacksitereportswidget';
+        $classname = '\\report_lmsace_reports\\local\\widgets\\stacksitereportswidget';
         $widgetinstance = new $classname();
         $templatename = "report_lmsace_reports/siteblocks";
         $reporturl = new moodle_url('/report/lmsace_reports/index.php');
     } else if ($PAGE->context->contextlevel == CONTEXT_COURSE) {
-        $classname = '\\report_lmsace_reports\\widgets\\stackcoursereportswidget';
+        $classname = '\\report_lmsace_reports\\local\\widgets\\stackcoursereportswidget';
         $widgetinstance = new $classname($PAGE->course->id);
         $templatename = "report_lmsace_reports/courseblocks";
         $reporturl = new moodle_url('/report/lmsace_reports/index.php', ['report' => 'coursereport',
             'courseinfo' => $PAGE->course->id,
         ]);
     } else if (report_helper::is_currentuser_has_teacherrole()) {
-        $classname = '\\report_lmsace_reports\\widgets\\stackcoursereportswidget';
+        $classname = '\\report_lmsace_reports\\local\\widgets\\stackcoursereportswidget';
         $teachercourse = report_helper::get_teacher_courses($USER->id);
         $courseid = current($teachercourse)->courseid;
         $widgetinstance = new $classname($courseid);
         $templatename = "report_lmsace_reports/courseblocks";
         $reporturl = new moodle_url('/report/lmsace_reports/index.php', ['report' => 'coursereport', 'courseinfo' => $courseid]);
     } else { // User related the report.
-        $classname = '\\report_lmsace_reports\\widgets\\stackuserreportswidget';
+        $classname = '\\report_lmsace_reports\\local\\widgets\\stackuserreportswidget';
         $widgetinstance = new $classname($USER->id);
         $templatename = "report_lmsace_reports/userblocks";
         $reporturl = new moodle_url('/report/lmsace_reports/index.php', ['report' => 'userreport', 'userinfo' => $USER->id]);
@@ -201,4 +199,3 @@ function report_lmsace_get_block_report() {
     $footer = html_writer::link($reporturl->out(false), get_string('viewreport', 'block_lmsace_reports'));
     return [$header, $footer];
 }
-

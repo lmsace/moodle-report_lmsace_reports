@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define([], function() {
+define([], function () {
 
     /* global siteresourceofcourses */
 
@@ -34,7 +34,7 @@ define([], function() {
         showCourseActivityChart(main);
     }
 
-    var showCourseActivityChart = function(main) {
+    var showCourseActivityChart = function (main) {
 
         let ctx = document.getElementById('course-activity-chart');
         if (ctx) {

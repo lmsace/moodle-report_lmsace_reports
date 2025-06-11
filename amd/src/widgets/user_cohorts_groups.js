@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, AJAX, LoadIcon) {
+define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function ($, AJAX, LoadIcon) {
 
     /* global usergroupcohorts */
     var chartReport = null;
@@ -34,7 +34,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
      */
     function init(main) {
         showUserGroupCohortChart(main);
-        $(".user-cohort-group-block .dropdown-menu a").click(function() {
+        $(".user-cohort-group-block .dropdown-menu a").click(function () {
             var selText = $(this).text();
             var filter = $(this).attr("value");
             $(this).parents('.dropdown').find('#daterangefiltermenu').html(selText + ' <span class="caret"></span>');
@@ -42,7 +42,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
         });
     }
 
-    var showUserGroupCohortChart = function(main) {
+    var showUserGroupCohortChart = function (main) {
 
         let ctx = document.getElementById('user-cohort-group-chart');
         if (ctx) {
@@ -52,7 +52,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
         }
     };
 
-    var getUserGroupCohortrecords = function(filter) {
+    var getUserGroupCohortrecords = function (filter) {
 
         var request = {
             methodname: 'report_lmsace_reports_get_chart_reports',
@@ -63,13 +63,13 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
             }
         };
         var promise = AJAX.call([request])[0];
-        promise.done(function(result) {
+        promise.done(function (result) {
             updateChartData(result);
         });
         LoadIcon.addIconToContainerRemoveOnCompletion(loadiconElement, promise);
     };
 
-    var updateChartData = function(result) {
+    var updateChartData = function (result) {
         chartReport.data.labels = result.label;
         chartReport.data.datasets[0].data = result.value;
         chartReport.update();

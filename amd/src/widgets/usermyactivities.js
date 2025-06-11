@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, AJAX, LoadIcon) {
+define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function ($, AJAX, LoadIcon) {
 
     var loadiconElement = $(".user-myactivities-block .loadiconElement");
 
@@ -29,7 +29,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
      * Initialize the chart.
      */
     function init() {
-        $(".user-myactivities-block .dropdown-menu a").click(function() {
+        $(".user-myactivities-block .dropdown-menu a").click(function () {
             var selText = $(this).text();
             var filter = $(this).attr("value");
             $(this).parents('.dropdown').find('#daterangefiltermenu').html(selText + ' <span class="caret"></span>');
@@ -37,7 +37,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
             getmyactivitiesRecords(filter, userid);
         });
 
-        var getmyactivitiesRecords = function(filter, userid) {
+        var getmyactivitiesRecords = function (filter, userid) {
 
             if (!filter) {
                 filter = 'today';
@@ -51,7 +51,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs'], function($, 
                 }
             };
             var promise = AJAX.call([request])[0];
-            promise.done(function(result) {
+            promise.done(function (result) {
                 $(".user-myactivities-block").find(".user-myactivities-reports").empty().append(result);
             });
             LoadIcon.addIconToContainerRemoveOnCompletion(loadiconElement, promise);

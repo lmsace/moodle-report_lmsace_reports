@@ -20,7 +20,7 @@
  * @copyright  2023 LMSACE <https://lmsace.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['core/chartjs'], function() {
+define(['core/chartjs'], function () {
 
     /* global cohortsinfo */
 

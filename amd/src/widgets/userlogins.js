@@ -22,7 +22,7 @@
  */
 
 define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs', 'report_lmsace_reports/main'],
-    function($, AJAX, LoadIcon) {
+    function ($, AJAX, LoadIcon) {
 
         var visitchart = null;
         var loadiconElement = $(".user-login-block .loadiconElement");
@@ -43,7 +43,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs', 'report_lmsac
             var userid = userlogins.userid;
             showloginChart(main, label, datavalue);
 
-            $(".user-login-block .dropdown-menu a").click(function() {
+            $(".user-login-block .dropdown-menu a").click(function () {
                 var selText = $(this).text();
                 var filter = $(this).attr("value");
                 $(this).parents('.dropdown').find('#daterangefiltermenu').html(selText + ' <span class="caret"></span>');
@@ -60,7 +60,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs', 'report_lmsac
          * @param {String} label
          * @param {Object} datavalue
          */
-        var showloginChart = function(main, label, datavalue) {
+        var showloginChart = function (main, label, datavalue) {
 
             let ctx = document.getElementById('user-login-chart');
             if (ctx) {
@@ -79,7 +79,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs', 'report_lmsac
             }
         };
 
-        var getUserloginRecords = function(filter, userid) {
+        var getUserloginRecords = function (filter, userid) {
 
             if (!filter) {
                 filter = 'week';
@@ -94,13 +94,13 @@ define(['jquery', 'core/ajax', 'core/loadingicon', 'core/chartjs', 'report_lmsac
                 }
             };
             var promise = AJAX.call([request])[0];
-            promise.done(function(result) {
+            promise.done(function (result) {
                 updateChartData(result);
             });
             LoadIcon.addIconToContainerRemoveOnCompletion(loadiconElement, promise);
         };
 
-        var updateChartData = function(data) {
+        var updateChartData = function (data) {
             visitchart.data.labels = data.label;
             visitchart.data.datasets[0].data = data.value;
             visitchart.update();

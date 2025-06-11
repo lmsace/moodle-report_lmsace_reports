@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) {
+define(['jquery', 'core/ajax', 'core/loadingicon'], function ($, AJAX, LoadIcon) {
 
     /**
      * Trigger the intialHandler
@@ -30,7 +30,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
         intialHandler();
     }
 
-    var intialHandler = function() {
+    var intialHandler = function () {
         var moodlesrcElement = $(".site-state-reports .moodlesrc-size");
         var moodledataElement = $(".site-state-reports .moodledata-size");
 
@@ -42,7 +42,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
         };
 
         var promise = AJAX.call([request])[0];
-        promise.done(function(result) {
+        promise.done(function (result) {
             $(moodlesrcElement).text(result.moodlesrc);
             $(moodledataElement).text(result.moodledata);
         });

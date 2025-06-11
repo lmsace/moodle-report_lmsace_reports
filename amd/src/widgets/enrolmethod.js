@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery'], function() {
+define(['jquery'], function () {
 
     /* global enrolmethodusers */
 
@@ -31,7 +31,7 @@ define(['jquery'], function() {
             let ctx = document.getElementById('enroll-method-chart');
             if (ctx) {
                 var type = 'pie';
-                var bgColor = main.getRandomColors(Array.from({length: enrolmethodusers.label.length}, (_, t) => 'c' + (t + 1)));
+                var bgColor = main.getRandomColors(Array.from({ length: enrolmethodusers.label.length }, (_, t) => 'c' + (t + 1)));
                 main.buildChart(ctx, type, enrolmethodusers.label, enrolmethodusers.value, bgColor, null);
             }
         }

@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) {
+define(['jquery', 'core/ajax', 'core/loadingicon'], function ($, AJAX, LoadIcon) {
 
     /* global mostvisitcourse */
 
@@ -35,7 +35,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
      */
     function init(main) {
         showMostVisitsCourses(main);
-        $(".user-visits-course-block .dropdown-menu a").click(function() {
+        $(".user-visits-course-block .dropdown-menu a").click(function () {
             var selText = $(this).text();
             var filter = $(this).attr("value");
             $(this).parents('.dropdown').find('#daterangefiltermenu').html(selText + ' <span class="caret"></span>');
@@ -43,7 +43,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
         });
     }
 
-    var showMostVisitsCourses = function(main) {
+    var showMostVisitsCourses = function (main) {
         let ctx = document.getElementById('user-visits-course-chart');
         if (ctx) {
 
@@ -76,7 +76,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
         }
     };
 
-    var getUserMostvisitsrecords = function(filter) {
+    var getUserMostvisitsrecords = function (filter) {
         var request = {
             methodname: 'report_lmsace_reports_get_chart_reports',
             args: {
@@ -86,13 +86,13 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
             }
         };
         var promise = AJAX.call([request])[0];
-        promise.done(function(result) {
+        promise.done(function (result) {
             updateChartData(result);
         });
         LoadIcon.addIconToContainerRemoveOnCompletion(loadiconElement, promise);
     };
 
-    var updateChartData = function(result) {
+    var updateChartData = function (result) {
         chartReport.data.labels = result.label;
         chartReport.data.datasets[0].data = result.value;
         chartReport.update();

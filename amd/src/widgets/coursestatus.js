@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) {
+define(['jquery', 'core/ajax', 'core/loadingicon'], function ($, AJAX, LoadIcon) {
 
     /* global courseresources */
     var courseStatus = null;
@@ -34,7 +34,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
      */
     function init(main) {
         showCoursestatusChart(main);
-        $(".course-status-block .dropdown-menu a").click(function() {
+        $(".course-status-block .dropdown-menu a").click(function () {
             var selText = $(this).text();
             var filter = $(this).attr("value");
             $(this).parents('.dropdown').find('#daterangefiltermenu').html(selText + ' <span class="caret"></span>');
@@ -42,7 +42,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
         });
     }
 
-    var getCourseactivityRecords = function(filter) {
+    var getCourseactivityRecords = function (filter) {
 
         if (!filter) {
             filter = 'week';
@@ -57,19 +57,19 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
             }
         };
         var promise = AJAX.call([request])[0];
-        promise.done(function(result) {
+        promise.done(function (result) {
             updateChartData(result);
         });
         LoadIcon.addIconToContainerRemoveOnCompletion(loadiconElement, promise);
     };
 
-    var updateChartData = function(data) {
+    var updateChartData = function (data) {
         courseStatus.data.labels = data.label;
         courseStatus.data.datasets[0].data = data.value;
         courseStatus.update();
     };
 
-    var showCoursestatusChart = function(main) {
+    var showCoursestatusChart = function (main) {
 
         var ctx = document.getElementById('course-status-chart');
         if (ctx) {

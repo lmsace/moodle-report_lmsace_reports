@@ -25,7 +25,9 @@ namespace report_lmsace_reports\cache;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/cache/classes/loaders.php');
+if (file_exists($CFG->dirroot.'/cache/classes/loaders.php')) {
+    require_once($CFG->dirroot.'/cache/classes/loaders.php');
+}
 
 /**
  * Custom cache loader for the lmsace reports.
@@ -40,7 +42,7 @@ class loader extends \cache_application {
      *
      * Delete all the files using delete_many method.
      *
-     * @param int $id ID of the courseid or userid.
+     * @param string $prefix The prefix to identify the reports.
      * @return void
      */
     public function delete_report($prefix) {
@@ -54,6 +56,5 @@ class loader extends \cache_application {
             return $this->delete_many($keys) ? true : false;
         }
     }
-
 
 }

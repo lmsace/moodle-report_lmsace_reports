@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) {
+define(['jquery', 'core/ajax', 'core/loadingicon'], function ($, AJAX, LoadIcon) {
 
     var userinfochart = null;
     var loadiconElement = $(".user-info-block .loadiconElement");
@@ -45,7 +45,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
 
         showVisitChart(main, label, datavalue);
 
-        $(".user-info-block  .dropdown-menu a").click(function() {
+        $(".user-info-block  .dropdown-menu a").click(function () {
             var selText = $(this).text();
             var filter = $(this).attr("value");
             $(this).parents('.dropdown').find('#daterangefiltermenu').html(selText + ' <span class="caret"></span>');
@@ -55,7 +55,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
         return true;
     }
 
-    var showVisitChart = function(main, label, datavalue) {
+    var showVisitChart = function (main, label, datavalue) {
 
         let ctx = document.getElementById('user-info-chart');
 
@@ -68,7 +68,7 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
         }
     };
 
-    var getUserInfoRecords = function(filter) {
+    var getUserInfoRecords = function (filter) {
 
         if (!filter) {
             filter = 'today';
@@ -82,13 +82,13 @@ define(['jquery', 'core/ajax', 'core/loadingicon'], function($, AJAX, LoadIcon) 
             }
         };
         var promise = AJAX.call([request])[0];
-        promise.done(function(result) {
+        promise.done(function (result) {
             updateChartData(result);
         });
         LoadIcon.addIconToContainerRemoveOnCompletion(loadiconElement, promise);
     };
 
-    var updateChartData = function(data) {
+    var updateChartData = function (data) {
 
         userinfochart.data.labels = data.label;
         userinfochart.data.datasets[0].data = data.value;

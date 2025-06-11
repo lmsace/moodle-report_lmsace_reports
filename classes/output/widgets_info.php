@@ -95,6 +95,7 @@ abstract class widgets_info {
     /**
      * Purge the caches of the report widgets.
      *
+     * @param string|null $key The key to purge the cache.
      * @return bool
      */
     public static function purge_cache(?string $key=''): bool {
@@ -148,6 +149,5 @@ abstract class widgets_info {
         }
         return $labelcount;
     }
-
 
 }

@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Get Reports widgets.
  *
@@ -286,12 +285,12 @@ class report_helper {
     public static function ajax_chart_reports($filter, $classname, $relatedid = 0, $function = '') {
         global $CFG;
 
-        $classfile = $CFG->dirroot . '/report/lmsace_reports/classes/widgets/' . $classname . '.php';
+        $classfile = $CFG->dirroot . '/report/lmsace_reports/classes/local/widgets/' . $classname . '.php';
         if (!file_exists($classfile)) {
             debugging("Class file dosn't exist " . $classname);
         }
         require_once($classfile);
-        $classname = '\\report_lmsace_reports\\widgets\\' . $classname;
+        $classname = '\\report_lmsace_reports\\local\\widgets\\' . $classname;
         if ($relatedid) {
             $widgetinstance = new $classname($relatedid, $filter);
         } else {

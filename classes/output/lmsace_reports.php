@@ -137,7 +137,7 @@ class lmsace_reports implements renderable, templatable {
             }
             $form->set_data(['userinfo' => $output->useraction]);
             $data->userform = $form->render();
-        }  else {
+        } else {
             $data->userform = '';
         }
 
