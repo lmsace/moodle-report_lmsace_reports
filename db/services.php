@@ -80,13 +80,4 @@ $functions = [
         'ajax'        => true,
         'loginrequired' => true,
     ],
-    'report_lmsace_reports_get_module_grades' => [
-        'classname'   => 'report_lmsace_reports_external',
-        'methodname'  => 'get_module_grades',
-        'classpath'   => 'report/lmsace_reports/externallib.php',
-        'description' => 'Get the module grades',
-        'type'        => 'write',
-        'ajax'        => true,
-        'loginrequired' => true,
-    ],
 ];

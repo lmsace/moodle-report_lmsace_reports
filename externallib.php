@@ -26,12 +26,17 @@ defined('MOODLE_INTERNAL') || die;
 require_once($CFG->libdir . "/externallib.php");
 require_once($CFG->dirroot . "/report/lmsace_reports/lib.php");
 
-use external_single_structure;
-use external_multiple_structure;
-use external_value;
-use external_function_parameters;
-use external_api;
+use core_external\external_single_structure;
+use core_external\external_multiple_structure;
+use core_external\external_value;
+use core_external\external_function_parameters;
+use core_external\external_api;
 use report_lmsace_reports\report_helper;
+use context_system;
+use context_course;
+use context_user;
+use moodle_exception;
+use context;
 
 /**
  * External source for reports.
@@ -59,11 +64,48 @@ class report_lmsace_reports_external extends external_api {
      * @return array
      */
     public static function get_chart_reports($filter, $chartid, $relatedid = 0) {
-        global $PAGE;
+        global $PAGE, $USER;
 
-        $PAGE->set_context(\context_system::instance());
+        // Validate parameters.
+        $params = self::validate_parameters(self::get_chart_reports_parameters(),
+            ['filter' => $filter, 'chartid' => $chartid, 'relatedid' => $relatedid]);
 
-        $data = report_helper::ajax_chart_reports($filter, $chartid, $relatedid);
+        // Set system context by default.
+        $context = \context_system::instance();
+        self::validate_context($context);
+
+        // Validate context and capabilities based on chart type and related ID.
+        if ($params['relatedid'] > 0) {
+            // Check if this is a course-related chart.
+            if (strpos($params['chartid'], 'course') !== false) {
+                $context = \context_course::instance($params['relatedid']);
+                self::validate_context($context);
+                require_capability("report/lmsace_reports:viewcoursereports", $context);
+            } else {
+                // This is a user-related chart.
+                if ($USER->id == $params['relatedid']) {
+                    $context = \context_user::instance($params['relatedid']);
+                    self::validate_context($context);
+                    require_capability("report/lmsace_reports:viewuserreports", $context);
+                } else {
+                    $context = \context_user::instance($params['relatedid']);
+                    self::validate_context($context);
+                    require_capability("report/lmsace_reports:viewotheruserreports", $context);
+                }
+
+                // Prevent generating reports for admin users.
+                if (is_siteadmin($params['relatedid'])) {
+                    throw new moodle_exception('noadminreports', 'report_lmsace_reports');
+                }
+            }
+        } else {
+            // Site-level reports.
+            require_capability("report/lmsace_reports:viewsitereports", $context);
+        }
+
+        $PAGE->set_context($context);
+
+        $data = report_helper::ajax_chart_reports($params['filter'], $params['chartid'], $params['relatedid']);
         if (!isset($data['label'])) {
             $data['label'] = [];
         }
@@ -91,66 +133,6 @@ class report_lmsace_reports_external extends external_api {
     }
 
     /**
-     * Chart report parameters.
-     */
-    public static function get_module_grades_parameters() {
-        return new external_function_parameters(
-            [
-                'filter' => new external_value(PARAM_TEXT, 'Duration filter'),
-                'chartid' => new external_value(PARAM_TEXT, 'chart id '),
-                'relatedid' => new external_value(PARAM_INT, 'user id', VALUE_OPTIONAL),
-            ],
-        );
-    }
-
-    /**
-     * Get chart report
-     * @param string $filter
-     * @param int $chartid
-     * @param int $relatedid
-     * @return array
-     */
-    public static function get_module_grades($filter, $chartid, $relatedid = 0) {
-        $data = report_helper::ajax_chart_reports($filter, $chartid, $relatedid);
-        if (!isset($data['label'])) {
-            $data['label'] = [];
-        }
-        if (!isset($data['value'])) {
-            $data['value'] = [];
-        }
-
-        if (!isset($data['grades'])) {
-            $data['grades'] = [];
-        }
-
-        if (!isset($data['courseid'])) {
-            $data['courseid'] = [];
-        }
-        return $data;
-    }
-
-    /**
-     * Return chart reports.
-     */
-    public static function get_module_grades_returns() {
-
-        return new external_single_structure(
-            [
-                'label' => new external_multiple_structure(
-                    new external_value(PARAM_RAW, 'chart label')
-                ),
-                'value' => new external_multiple_structure(
-                    new external_value(PARAM_INT, 'chart value')
-                ),
-                'grades' => new external_multiple_structure(
-                    new external_value(PARAM_INT, 'grades value')
-                ),
-                'courseid' => new external_value(PARAM_INT, 'Course id'),
-            ],
-        );
-    }
-
-    /**
      * Get the site visits parameters.
      */
     public static function get_site_visits_parameters() {
@@ -171,7 +153,37 @@ class report_lmsace_reports_external extends external_api {
      * @return array list of visits
      */
     public static function get_site_visits($filter, $chartid, $relatedid = 0) {
-        $data = report_helper::ajax_chart_reports($filter, $chartid, $relatedid);
+        global $USER;
+
+        // Validate parameters.
+        $params = self::validate_parameters(self::get_site_visits_parameters(),
+            ['filter' => $filter, 'chartid' => $chartid, 'relatedid' => $relatedid]);
+
+        // Validate context and capabilities.
+        if ($params['relatedid'] > 0) {
+            // User-specific visits.
+            if ($USER->id == $params['relatedid']) {
+                $context = context_user::instance($params['relatedid']);
+                self::validate_context($context);
+                require_capability("report/lmsace_reports:viewuserreports", $context);
+            } else {
+                $context = context_user::instance($params['relatedid']);
+                self::validate_context($context);
+                require_capability("report/lmsace_reports:viewotheruserreports", $context);
+            }
+
+            // Prevent generating reports for admin users.
+            if (is_siteadmin($params['relatedid'])) {
+                throw new moodle_exception('noadminreports', 'report_lmsace_reports');
+            }
+        } else {
+            // Site-level visits.
+            $context = context_system::instance();
+            self::validate_context($context);
+            require_capability("report/lmsace_reports:viewsitereports", $context);
+        }
+
+        $data = report_helper::ajax_chart_reports($params['filter'], $params['chartid'], $params['relatedid']);
         return $data;
     }
 
@@ -222,7 +234,16 @@ class report_lmsace_reports_external extends external_api {
      * @return array $data.
      */
     public static function get_activity_progress_reports($filter, $chartid) {
-        $data = report_helper::ajax_chart_reports($filter, $chartid);
+        // Validate parameters.
+        $params = self::validate_parameters(self::get_activity_progress_reports_parameters(),
+            ['filter' => $filter, 'chartid' => $chartid]);
+
+        // Validate site context and capabilities.
+        $context = \context_system::instance();
+        self::validate_context($context);
+        require_capability("report/lmsace_reports:viewsitereports", $context);
+
+        $data = report_helper::ajax_chart_reports($params['filter'], $params['chartid']);
         return $data;
     }
 
@@ -272,10 +293,32 @@ class report_lmsace_reports_external extends external_api {
      * @param int $relatedid
      */
     public static function get_table_reports($filter, $chartid, $contextid, $relatedid = 0) {
-        global $PAGE;
+        global $PAGE, $USER;
+
         $params = self::validate_parameters(self::get_table_reports_parameters(),
             ['filter' => $filter, 'chartid' => $chartid, 'contextid' => $contextid, 'relatedid' => $relatedid]);
-        $context = \context::instance_by_id($params['contextid']);
+
+        $context = context::instance_by_id($params['contextid']);
+        self::validate_context($context);
+
+        // Additional validation based on context type.
+        if ($context instanceof context_course) {
+            require_capability("report/lmsace_reports:viewcoursereports", $context);
+        } else if ($context instanceof context_user) {
+            if ($USER->id == $context->instanceid) {
+                require_capability("report/lmsace_reports:viewuserreports", $context);
+            } else {
+                require_capability("report/lmsace_reports:viewotheruserreports", $context);
+            }
+
+            // Prevent generating reports for admin users.
+            if (is_siteadmin($context->instanceid)) {
+                throw new moodle_exception('noadminreports', 'report_lmsace_reports');
+            }
+        } else {
+            require_capability("report/lmsace_reports:viewsitereports", $context);
+        }
+
         $PAGE->set_context($context);
         $data = report_helper::ajax_chart_reports($params['filter'],
             $params['chartid'], $params['relatedid'], '');
@@ -310,7 +353,16 @@ class report_lmsace_reports_external extends external_api {
      * @return array $data
      */
     public static function get_enrollment_completion_bymonths($filter, $chartid) {
-        $data = report_helper::ajax_chart_reports($filter, $chartid);
+        // Validate parameters.
+        $params = self::validate_parameters(self::get_enrollment_completion_bymonths_parameters(),
+            ['filter' => $filter, 'chartid' => $chartid]);
+
+        // Validate site context and capabilities.
+        $context = context_system::instance();
+        self::validate_context($context);
+        require_capability("report/lmsace_reports:viewsitereports", $context);
+
+        $data = report_helper::ajax_chart_reports($params['filter'], $params['chartid']);
         return $data;
     }
 
