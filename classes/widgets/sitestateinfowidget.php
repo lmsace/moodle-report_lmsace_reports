@@ -96,9 +96,9 @@ class sitestateinfowidget extends widgets_info {
             $data['lastlogclear'] = get_string('never');
         }
         $data['themedesignermode'] = $CFG->themedesignermode ? get_string('enable') : get_string('disable');
-        $data['themedesignermoderbadge'] = $CFG->themedesignermode ? "success" : "danger";
+        $data['themedesignermoderbadge'] = $CFG->themedesignermode ? "danger" : "success";
         $data['debugging'] = $CFG->debug ? get_string('enable') : get_string('disable');
-        $data['debuggingbadge'] = $CFG->debug ? "success" : "danger";
+        $data['debuggingbadge'] = $CFG->debug ? "danger" : "success";
         $data['addtionalplugins'] = report_helper::get_addtional_plugins();
         $this->report = $OUTPUT->render_from_template('report_lmsace_reports/sitestate_reports', $data);
     }
